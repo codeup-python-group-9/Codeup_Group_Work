@@ -1,9 +1,12 @@
 def view_current_balance(transactions):
     # choice 1
+    balance = 0
     print('Your transactions are: ')
     for trans in transactions:
-        print(trans, end='')
-    print()
+        print(balance, trans, end='')
+        balance += float(trans[1])
+        
+    print(balance)
 
 
 def record_withdrawal(transactions):
