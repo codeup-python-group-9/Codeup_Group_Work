@@ -15,8 +15,23 @@ def record_withdrawal(all_transactions, transaction_number):
     while not debit_input.isdigit() or int(debit_input) <= 0:
         debit_input = input('Please re-enter your withdrawal, using only digits: ')
     debit = float(debit_input)
-    print(f'You entered ${debit:.2f}.')
+    print(f'You entered ${debit:.2f}.') # remove later
+    
+    category = input('What category would you like to enter for your withdrawal (1-10)?')
+    while not category.isdigit() or int(category) < 1 or int(category) > 10:
+        category = input('What category would you like to enter for your withdrawal (1-10)?')
     print()
+
+    day = datetime.datetime.now().strftime("%y/%m/%d")
+    time = datetime.datetime.now().strftime("%H:%M:%S")
+
+    this_transaction = [str(transaction_number), '-'+debit_input, category, day, time]
+    all_transactions.append(this_transaction)
+    print(all_transactions[-3:])
+
+    with open('random_data_python_group_project.txt', 'a') as f:
+        f.write(str(this_transaction))
+
 
 
 def record_deposit(all_transactions, transaction_number):
@@ -32,6 +47,8 @@ def record_deposit(all_transactions, transaction_number):
 
 
 # @@@@@@@ MAIN @@@@@@@@
+import time
+import datetime
 # read file of transaction and set up lists
 with open('random_data_python_group_project.txt') as transactions_file:
     whole_file = transactions_file.readlines()
