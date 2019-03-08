@@ -1,0 +1,1 @@
+This is Joseph and Sandy's group project folder.
