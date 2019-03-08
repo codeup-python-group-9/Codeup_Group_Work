@@ -43,10 +43,20 @@ transactions = whole_file[1:]
 trans_by_field = []
 
 for trans in transactions[:3]:
-    split_by_tabs = trans.split('\t')
-    print('split_by_tabs = ',split_by_tabs)
-    trans_by_field.append(split_by_tabs)
-print('trans_by_field = ',trans_by_field)
+    trans_by_field.append(trans.split('\t'))
+
+print('trans_by_field = ', trans_by_field)
+print()
+
+balance = 0
+for i in range(0,len(trans_by_field)):
+    print(trans_by_field[i])
+    print(trans_by_field[i][1])
+    amount_string = trans_by_field[i][1]
+    amount = float(amount_string)
+    balance += amount
+print('balance = ', balance)
+
 
 
 print('~~~ Welcome to your terminal checkbook! ~~~')
