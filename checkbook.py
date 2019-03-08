@@ -1,10 +1,10 @@
-def view_current_balance(customer_id):
+def view_current_balance(transactions):
     # choice 1
     print('Your current balance is $50.00')
     print()
 
 
-def record_withdrawal(customer_id):
+def record_withdrawal(transactions):
     # choice 2
     debit_input = input('How much is the withdrawal? ')
     # check for valid debit
@@ -15,7 +15,7 @@ def record_withdrawal(customer_id):
     print()
 
 
-def record_deposit(customer_id):
+def record_deposit(transactions):
     # choice 3
     credit_input = input('How much is the deposit? ')
     # check for valid deposit
@@ -27,7 +27,14 @@ def record_deposit(customer_id):
 
 
 # @@@@@@@ MAIN @@@@@@@@
-customer_id = '123'
+with open('random_data_python_group_project.txt') as transactions_file:
+    whole_file = transactions_file.readlines()
+headings = whole_file[0]
+print(headings)
+
+transactions = whole_file[1:]
+for trans in transactions[:3]:
+    print(trans)
 
 print('~~~ Welcome to your terminal checkbook! ~~~')
 print()
@@ -51,10 +58,10 @@ while again:
             again = False
         else:
             if choice == 1:
-                view_current_balance(customer_id)
+                view_current_balance(transactions)
             elif choice == 2:
-                record_withdrawal(customer_id)
+                record_withdrawal(transactions)
             elif choice == 3:
-                record_deposit(customer_id)
+                record_deposit(transactions)
 
 print('Thanks, have a great day!')
