@@ -4,7 +4,7 @@ def view_current_balance(transactions):
     print('Your transactions are: ')
     for trans in transactions:
         print(balance, trans, end='')
-        balance += float(trans[1])
+        # balance += float(trans[1])
         
     print(balance)
 
@@ -38,8 +38,27 @@ headings = whole_file[0]
 print(headings)
 
 transactions = whole_file[1:]
+# print(transactions[:3])
+
+trans_by_field = []
+
 for trans in transactions[:3]:
-    print(trans)
+    print(trans, end='')
+    print(len(trans))
+    trans_by_field += trans.split('\t')
+    
+    # field = ''
+    # for character in trans:
+        
+
+
+        # if character == '\n':
+        #     trans_by_field += character
+        # elif character == '\t':
+
+        # else:
+print(trans_by_field)
+
 
 print('~~~ Welcome to your terminal checkbook! ~~~')
 print()
