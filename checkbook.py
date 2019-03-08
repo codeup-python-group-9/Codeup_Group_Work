@@ -1,12 +1,10 @@
-def view_current_balance(transactions):
+def view_current_balance(trans_by_field):
     # choice 1
     balance = 0
-    print('Your transactions are: ')
-    for trans in transactions:
-        print(balance, trans, end='')
-        # balance += float(trans[1])
-        
-    print(balance)
+    for i in range(0,len(trans_by_field)):
+        balance += float(trans_by_field[i][1])
+    print(f'Your balance is ${balance:.2f}.')
+    print()
 
 
 def record_withdrawal(transactions):
@@ -32,25 +30,17 @@ def record_deposit(transactions):
 
 
 # @@@@@@@ MAIN @@@@@@@@
+# read file of transaction and set up lists
 with open('random_data_python_group_project.txt') as transactions_file:
     whole_file = transactions_file.readlines()
 headings = whole_file[0]
-print(headings)
 
 transactions = whole_file[1:]
-
 
 trans_by_field = []
 
 for trans in transactions:
     trans_by_field.append(trans.split('\t'))
-
-balance = 0
-for i in range(0,len(trans_by_field)):
-    balance += float(trans_by_field[i][1])
-print(f'balance = ${balance:.2f}.')
-
-
 
 print('~~~ Welcome to your terminal checkbook! ~~~')
 print()
@@ -74,10 +64,10 @@ while again:
             again = False
         else:
             if choice == 1:
-                view_current_balance(transactions)
+                view_current_balance(trans_by_field)
             elif choice == 2:
-                record_withdrawal(transactions)
+                record_withdrawal(trans_by_field)
             elif choice == 3:
-                record_deposit(transactions)
+                record_deposit(trans_by_field)
 
 print('Thanks, have a great day!')
