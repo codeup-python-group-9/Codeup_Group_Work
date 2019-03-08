@@ -38,26 +38,15 @@ headings = whole_file[0]
 print(headings)
 
 transactions = whole_file[1:]
-# print(transactions[:3])
+
 
 trans_by_field = []
 
 for trans in transactions[:3]:
-    print(trans, end='')
-    print(len(trans))
-    trans_by_field += trans.split('\t')
-    
-    # field = ''
-    # for character in trans:
-        
-
-
-        # if character == '\n':
-        #     trans_by_field += character
-        # elif character == '\t':
-
-        # else:
-print(trans_by_field)
+    split_by_tabs = trans.split('\t')
+    print('split_by_tabs = ',split_by_tabs)
+    trans_by_field.append(split_by_tabs)
+print('trans_by_field = ',trans_by_field)
 
 
 print('~~~ Welcome to your terminal checkbook! ~~~')
