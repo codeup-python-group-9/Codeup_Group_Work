@@ -42,20 +42,13 @@ transactions = whole_file[1:]
 
 trans_by_field = []
 
-for trans in transactions[:3]:
+for trans in transactions:
     trans_by_field.append(trans.split('\t'))
-
-print('trans_by_field = ', trans_by_field)
-print()
 
 balance = 0
 for i in range(0,len(trans_by_field)):
-    print(trans_by_field[i])
-    print(trans_by_field[i][1])
-    amount_string = trans_by_field[i][1]
-    amount = float(amount_string)
-    balance += amount
-print('balance = ', balance)
+    balance += float(trans_by_field[i][1])
+print(f'balance = ${balance:.2f}.')
 
 
 
