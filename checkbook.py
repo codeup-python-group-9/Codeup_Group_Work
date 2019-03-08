@@ -1,6 +1,8 @@
 def view_current_balance(transactions):
     # choice 1
-    print('Your current balance is $50.00')
+    print('Your transactions are: ')
+    for trans in transactions:
+        print(trans, end='')
     print()
 
 
