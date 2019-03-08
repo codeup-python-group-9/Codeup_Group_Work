@@ -1,4 +1,4 @@
-Transaction	Acct #	Amount	Category	Date 	Time
+transaction	acct#	amount	category	date 	time
 100001	200007	-114.85	4	2018/12/17	20:17:52
 100002	200006	386.33	7	2018/09/16	02:19:24
 100003	200010	269.06	9	2018/12/15	01:58:10
