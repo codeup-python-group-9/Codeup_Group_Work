@@ -73,19 +73,6 @@ update = []
 for date in test_date:
     update.append(int(date.replace('/','')))
 
-
-def date_search(update):
-    input_date_min = input('What date would you like to start with? Enter as YYYY/MM/DD: ')
-    date_min = int(input_date_min.replace('/',''))
-    print('Your start date is '+str(date_min))
-    input_date_max = input('What is your end date:  Enter as YYYY/MM/DD: ')
-    date_max = int(input_date_max.replace('/',''))
-    your_date_range = []
-    for date in update:
-        if date >= date_min and date <= date_max:
-            your_date_range.append(date)
-    print(your_date_range)
-
 category_sample = ['2','3','4','5','8','3','9','3','8','4','2','9','4','8','2','7']
 int_category_sample = []
 for category in category_sample:
@@ -101,6 +88,20 @@ def category_search(int_category_sample):
         if user_category_input in int_category_sample:
             user_category_input_int.append(user_category_input)
     print(user_category_input_int)
+
+
+def date_search(update):
+    input_date_min = input('What date would you like to start with? Enter as YYYY/MM/DD: ')
+    date_min = int(input_date_min.replace('/',''))
+    print('Your start date is '+str(date_min))
+    input_date_max = input('What is your end date:  Enter as YYYY/MM/DD: ')
+    date_max = int(input_date_max.replace('/',''))
+    your_date_range = []
+    for date in update:
+        if date >= date_min and date <= date_max:
+            your_date_range.append(date)
+    print(your_date_range)
+
 
 
 
