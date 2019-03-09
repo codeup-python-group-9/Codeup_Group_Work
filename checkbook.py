@@ -12,7 +12,9 @@ def record_withdrawal(all_transactions, transaction_number):
     transaction_number += 1
     debit_input = input('How much is the withdrawal? ')
     # check for valid debit
-    while not debit_input.isdigit() or int(debit_input) <= 0:
+    debit_parts = ''.join(debit_input.split('.'))
+    print(debit_parts)
+    while not debit_parts.isdigit() or int(debit_parts) <= 0:
         debit_input = input('Please re-enter your withdrawal, using only digits: ')
     debit = float(debit_input)
     print(f'You entered ${debit:.2f}.') # remove later
@@ -56,7 +58,7 @@ headings = whole_file[0]
 
 all_transactions = whole_file[1:]
 
-list_of_transactions = []
+list_of_transactions = ['\n']
 
 for trans in all_transactions:
     list_of_transactions.append(trans.split('\t'))
