@@ -25,7 +25,7 @@ def record_withdrawal(all_transactions, transaction_number):
     day = datetime.datetime.now().strftime("%y/%m/%d")
     time = datetime.datetime.now().strftime("%H:%M:%S")
 
-    this_transaction = [str(transaction_number), '-'+debit_input, category, day, time]
+    this_transaction = str(str(transaction_number)+'\t' +'-'+debit_input+'\t'+'\t' +category+'\t' + day+'\t' + time+'\n')
     all_transactions.append(this_transaction)
     print(all_transactions[-3:])
 
@@ -61,8 +61,30 @@ list_of_transactions = []
 for trans in all_transactions:
     list_of_transactions.append(trans.split('\t'))
 
+
 holder = list_of_transactions[len(list_of_transactions)-1][0]
 transaction_number = int(holder)
+
+
+test_date = ['2019/03/08', '2019/02/03', '2019/03/01', '2019/02/23']
+update = []
+for date in test_date:
+    update.append(int(date.replace('/','')))
+print(update)
+
+def date_search(update):
+    input_date_min = input('What date would you like to start with? Enter as YYYY/MM/DD: ')
+    date_min = int(input_date_min.replace('/',''))
+    print('Your start date is '+str(date_min))
+    input_date_max = input('What is your end date:  Enter as YYYY/MM/DD: ')
+    date_max = int(input_date_max.replace('/',''))
+    your_date_range = []
+    for date in update:
+        if date >= date_min and date <= date_max:
+            your_date_range.append(date)
+    print(your_date_range)
+
+
 
 print('~~~ Welcome to your terminal checkbook! ~~~')
 print()
@@ -76,7 +98,7 @@ while again:
         
     choice_input = input('Your choice? ')
         
-    if not choice_input.isdigit() or (int(choice_input) < 1 or int(choice_input) > 4):
+    if not choice_input.isdigit() or (int(choice_input) < 1 or int(choice_input) > 5):
         print('Invalid choice.')
         print('Please enter a 1, 2, 3, or 4.')
     else:
@@ -90,5 +112,8 @@ while again:
                 record_withdrawal(list_of_transactions, transaction_number)
             elif choice == 3:
                 record_deposit(list_of_transactions, transaction_number)
+            elif choice == 5:
+                date_search(update)
 
 print('Thanks, have a great day!')
+
