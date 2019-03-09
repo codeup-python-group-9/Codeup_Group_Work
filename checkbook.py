@@ -70,7 +70,7 @@ test_date = ['2019/03/08', '2019/02/03', '2019/03/01', '2019/02/23']
 update = []
 for date in test_date:
     update.append(int(date.replace('/','')))
-print(update)
+
 
 def date_search(update):
     input_date_min = input('What date would you like to start with? Enter as YYYY/MM/DD: ')
@@ -83,6 +83,22 @@ def date_search(update):
         if date >= date_min and date <= date_max:
             your_date_range.append(date)
     print(your_date_range)
+
+category_sample = ['2','3','4','5','8','3','9','3','8','4','2','9','4','8','2','7']
+int_category_sample = []
+for category in category_sample:
+    int_category_sample.append(int(category))
+
+print(int_category_sample)
+
+def category_search(int_category_sample):
+    user_category = input('What category would you like to search, 1-10: ')
+    user_category_input = int(user_category)
+    user_category_input_int = []
+    for category in int_category_sample:
+        if user_category_input in int_category_sample:
+            user_category_input_int.append(user_category_input)
+    print(user_category_input_int)
 
 
 
@@ -98,7 +114,7 @@ while again:
         
     choice_input = input('Your choice? ')
         
-    if not choice_input.isdigit() or (int(choice_input) < 1 or int(choice_input) > 5):
+    if not choice_input.isdigit() or (int(choice_input) < 1 or int(choice_input) > 6):
         print('Invalid choice.')
         print('Please enter a 1, 2, 3, or 4.')
     else:
@@ -114,6 +130,8 @@ while again:
                 record_deposit(list_of_transactions, transaction_number)
             elif choice == 5:
                 date_search(update)
+            elif choice == 6:
+                category_search(category_sample)
 
 print('Thanks, have a great day!')
 
