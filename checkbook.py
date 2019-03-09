@@ -40,6 +40,7 @@ def record_deposit(all_transactions, transaction_number):
     credit_parts = ''.join(credit_input.split('.'))
     while not credit_parts.isdigit() or int(credit_parts) <= 0:
         credit_input = input('Please re-enter your deposit, using only digits: ')
+    print()
     
     category = '10'
 
