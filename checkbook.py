@@ -24,7 +24,7 @@ def record_withdrawal(all_transactions, transaction_number):
         category = input('What category would you like to enter for your withdrawal (1-10)?')
     print()
 
-    day = datetime.datetime.now().strftime("%y/%m/%d")
+    day = datetime.datetime.now().strftime("%Y/%m/%d")
     time = datetime.datetime.now().strftime("%H:%M:%S")
 
     this_transaction = str(str(transaction_number)+'\t' +'-'+debit_input+'\t'+'\t' +category+'\t' + day+'\t' + time+'\n')
