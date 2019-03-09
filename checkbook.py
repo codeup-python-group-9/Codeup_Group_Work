@@ -80,20 +80,23 @@ for trans in list_of_transactions:
     dates_of_transactions.append(trans[-2])
 
 
-update = []
-for date in dates_of_transactions:
-    update.append(int(date.replace('/','')))
+# update = []
+# for date in dates_of_transactions:
+#     update.append(int(date.replace('/','')))
 
-def date_search(update):
+def date_search(list_of_transactions):
     input_date_min = input('What date would you like to start with? Enter as YYYY/MM/DD: ')
     date_min = int(input_date_min.replace('/',''))
     print('Your start date is '+str(date_min))
     input_date_max = input('What is your end date:  Enter as YYYY/MM/DD: ')
     date_max = int(input_date_max.replace('/',''))
     your_date_range = []
-    for date in update:
-        if date >= date_min and date <= date_max:
-            your_date_range.append(date)
+    for row_num in range(len(list_of_transactions)):
+        print('row_num = ',row_num)
+        print(list_of_transactions[row_num])
+        this_rows_date = int(list_of_transactions[row_num][3].replace('/',''))
+        if (this_rows_date >= date_min) and (this_rows_date <= date_max):
+            your_date_range.append(list_of_transactions)
     print(your_date_range)
 
 # category_sample = ['2','3','4','5','8','3','9','3','8','4','2','9','4','8','2','7']
@@ -140,7 +143,7 @@ while again:
             elif choice == 3:
                 record_deposit(list_of_transactions, transaction_number)
             elif choice == 5:
-                date_search(update)
+                date_search(list_of_transactions)
             # elif choice == 6:
             #     category_search(category_sample)
 
