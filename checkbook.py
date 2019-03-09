@@ -7,7 +7,7 @@ def view_current_balance(list_of_transactions):
     print()
 
 
-def record_withdrawal(all_transactions, transaction_number):
+def record_withdrawal(all_transactions, list_of_transactions, transaction_number):
     # choice 2
     transaction_number += 1
     debit_input = input('How much is the withdrawal? ')
@@ -26,13 +26,15 @@ def record_withdrawal(all_transactions, transaction_number):
 
     this_transaction = str(str(transaction_number)+'\t' +'-'+debit_input+'\t' +category+'\t' + day+'\t' + time+'\n')
     all_transactions.append(this_transaction)
+    list_of_transactions.append(this_transaction)
+    print(list_of_transactions[-1])
 
     with open('random_data_python_group_project.txt', 'a') as f:
         f.write(str(this_transaction))
 
 
 
-def record_deposit(all_transactions, transaction_number):
+def record_deposit(all_transactions, list_of_transactions, transaction_number):
     # choice 3
     transaction_number += 1
     credit_input = input('How much is the deposit? ')
@@ -49,6 +51,7 @@ def record_deposit(all_transactions, transaction_number):
 
     this_transaction = str(str(transaction_number)+'\t' + credit_input+'\t' +category+'\t' + day+'\t' + time+'\n')
     all_transactions.append(this_transaction)
+    list_of_transactions.append(this_transaction)
 
     with open('random_data_python_group_project.txt', 'a') as f:
         f.write(str(this_transaction))
@@ -91,13 +94,14 @@ def date_search(list_of_transactions):
     input_date_max = input('What is your end date:  Enter as YYYY/MM/DD: ')
     date_max = int(input_date_max.replace('/',''))
     your_date_range = []
+    count = 0
     for row_num in range(len(list_of_transactions)):
-        print('row_num = ',row_num)
-        print(list_of_transactions[row_num])
         this_rows_date = int(list_of_transactions[row_num][3].replace('/',''))
         if (this_rows_date >= date_min) and (this_rows_date <= date_max):
             your_date_range.append(list_of_transactions)
+            count += 1
     print(your_date_range)
+    print('count = ', count)
 
 # category_sample = ['2','3','4','5','8','3','9','3','8','4','2','9','4','8','2','7']
 # int_category_sample = []
@@ -139,9 +143,9 @@ while again:
             if choice == 1:
                 view_current_balance(list_of_transactions)
             elif choice == 2:
-                record_withdrawal(list_of_transactions, transaction_number)
+                record_withdrawal(all_transactions, list_of_transactions, transaction_number)
             elif choice == 3:
-                record_deposit(list_of_transactions, transaction_number)
+                record_deposit(all_transactions, list_of_transactions, transaction_number)
             elif choice == 5:
                 date_search(list_of_transactions)
             # elif choice == 6:
