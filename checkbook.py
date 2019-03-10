@@ -142,6 +142,30 @@ for trans in list_of_transactions:
 #     print(your_date_range)
 #     print('count = ', count)
 
+def date_search(list_of_transactions):
+    input_date_min = input('What date would you like to start with? Enter as YYYY/MM/DD: ')
+    date_min = int(input_date_min.replace('/',''))
+    print('Your start date is '+str(date_min))
+    input_date_max = input('What is your end date:  Enter as YYYY/MM/DD: ')
+    date_max = int(input_date_max.replace('/',''))
+    your_date_range = []
+    count = 0
+    for row_num in range(len(list_of_transactions)):
+        this_rows_date = int(list_of_transactions[row_num][3].replace('/',''))
+        if date_min >= date_max:
+            print('Please make sure your end date is not before your start date.')
+            input_date_min = input('What date would you like to start with? Enter as YYYY/MM/DD: ')
+            date_min = int(input_date_min.replace('/',''))
+            print('Your start date is '+str(date_min))
+            input_date_max = input('What is your end date:  Enter as YYYY/MM/DD: ')
+            date_max = int(input_date_max.replace('/',''))
+        elif (this_rows_date >= date_min) and (this_rows_date <= date_max):
+            this_row = list_of_transactions[row_num]
+            your_date_range.append(this_row)
+            count += 1
+    print(your_date_range)
+    print('count = ', count)
+
 # category_sample = ['2','3','4','5','8','3','9','3','8','4','2','9','4','8','2','7']
 # int_category_sample = []
 # for category in category_sample:
@@ -185,8 +209,8 @@ while again:
                 transaction_number = record_withdrawal(all_transactions, list_of_transactions, transaction_number)
             elif choice == 3:
                 transaction_number = record_deposit(all_transactions, list_of_transactions, transaction_number)
-            # elif choice == 5:
-            #     date_search(list_of_transactions)
+            elif choice == 5:
+                date_search(list_of_transactions)
             # elif choice == 6:
             #     category_search(category_sample)
 
