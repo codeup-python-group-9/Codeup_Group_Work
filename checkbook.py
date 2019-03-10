@@ -3,7 +3,6 @@ def view_current_balance(list_of_transactions):
     balance = 0
     for i in range(0,(len(list_of_transactions))):
         balance += float(list_of_transactions[i][1])
-    print(list_of_transactions[-2:]) # why does this print with brackets if run first????
     print(f'Your balance is ${balance:.2f}.')
     print()
 
@@ -42,14 +41,15 @@ def record_withdrawal(all_transactions, list_of_transactions, transaction_number
     this_transaction.append(time+'\n')
     all_transactions.append(this_transaction)
     list_of_transactions.append(this_transaction)
-    print(list_of_transactions[-2:])
-    print()
-
+ 
     # create a string to write to the text file
     this_transaction_for_file = str(transaction_number)+'\t' + '-'+debit_string+'\t'+ category+'\t' + day+'\t' + time+'\n'
 
     with open('random_data_python_group_project.txt', 'a') as f:
         f.write(str(this_transaction_for_file))
+
+    print(f'${debit_string} has been withdrawn from your account.')
+    print()
 
     return transaction_number
 
@@ -92,6 +92,9 @@ def record_deposit(all_transactions, list_of_transactions, transaction_number):
 
     with open('random_data_python_group_project.txt', 'a') as f:
         f.write(str(this_transaction_for_file))
+
+    print(f'${credit_string} has been deposited into your account.')
+    print()
 
     return transaction_number
 
@@ -202,6 +205,7 @@ while again:
         choice = int(choice_input)
         if choice == 4:
             again = False
+            print()
         else:
             if choice == 1:
                 view_current_balance(list_of_transactions)
