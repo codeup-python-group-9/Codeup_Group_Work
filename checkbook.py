@@ -3,6 +3,7 @@ def view_current_balance(list_of_transactions):
     balance = 0
     for i in range(0,(len(list_of_transactions))):
         balance += float(list_of_transactions[i][1])
+    print(list_of_transactions[-2:]) # why does this print with brackets if run first????
     print(f'Your balance is ${balance:.2f}.')
     print()
 
@@ -15,6 +16,14 @@ def record_withdrawal(all_transactions, list_of_transactions, transaction_number
     debit_parts = ''.join(debit_input.split('.'))
     while not debit_parts.isdigit() or int(debit_parts) <= 0:
         debit_input = input('Please re-enter your withdrawal, using only digits: ')
+
+    # format the debit amount 
+    if debit_parts[0] == '-':
+        debit_parts = debit_parts[1:]
+    debit = float(debit_input)
+    debit_string = str(debit)
+    if debit_string[-2] == '.':
+        debit_string += '0'
     
     category = input('What category would you like to enter for your withdrawal (1-9)? ')
     while not category.isdigit() or int(category) < 1 or int(category) > 9:
@@ -24,14 +33,25 @@ def record_withdrawal(all_transactions, list_of_transactions, transaction_number
     day = datetime.datetime.now().strftime("%Y/%m/%d")
     time = datetime.datetime.now().strftime("%H:%M:%S")
 
-    this_transaction = str(str(transaction_number)+'\t' +'-'+debit_input+'\t' +category+'\t' + day+'\t' + time+'\n')
+    # add to lists for code calculations
+    this_transaction = []
+    this_transaction.append(str(transaction_number)+'\t')
+    this_transaction.append('-'+debit_string+'\t') 
+    this_transaction.append(category+'\t')
+    this_transaction.append(day+'\t')
+    this_transaction.append(time+'\n')
     all_transactions.append(this_transaction)
     list_of_transactions.append(this_transaction)
-    print(list_of_transactions[-1])
+    print(list_of_transactions[-2:])
+    print()
+
+    # create a string to write to the text file
+    this_transaction_for_file = str(transaction_number)+'\t' + '-'+debit_string+'\t'+ category+'\t' + day+'\t' + time+'\n'
 
     with open('random_data_python_group_project.txt', 'a') as f:
-        f.write(str(this_transaction))
+        f.write(str(this_transaction_for_file))
 
+    return transaction_number
 
 
 def record_deposit(all_transactions, list_of_transactions, transaction_number):
@@ -44,18 +64,36 @@ def record_deposit(all_transactions, list_of_transactions, transaction_number):
         credit_input = input('Please re-enter your deposit, using only digits: ')
     print()
     
+    # format the credit amount 
+    if credit_parts[0] == '-':
+        credit_parts = credit_parts[1:]
+    credit = float(credit_input)
+    credit_string = str(credit)
+    if credit_string[-2] == '.':
+        credit_string += '0'
+
     category = '10'
 
     day = datetime.datetime.now().strftime("%Y/%m/%d")
     time = datetime.datetime.now().strftime("%H:%M:%S")
 
-    this_transaction = str(str(transaction_number)+'\t' + credit_input+'\t' +category+'\t' + day+'\t' + time+'\n')
+    # add to lists for code calculations
+    this_transaction = []
+    this_transaction.append(str(transaction_number)+'\t')
+    this_transaction.append(credit_string+'\t') 
+    this_transaction.append(category+'\t')
+    this_transaction.append(day+'\t')
+    this_transaction.append(time+'\n')
     all_transactions.append(this_transaction)
     list_of_transactions.append(this_transaction)
 
-    with open('random_data_python_group_project.txt', 'a') as f:
-        f.write(str(this_transaction))
+    # create a string to write to text file
+    this_transaction_for_file = str(transaction_number)+'\t' + credit_string+'\t'+ category+'\t' + day+'\t' + time+'\n'
 
+    with open('random_data_python_group_project.txt', 'a') as f:
+        f.write(str(this_transaction_for_file))
+
+    return transaction_number
 
 
 # # @@@@@@@ MAIN @@@@@@@@
@@ -76,6 +114,7 @@ for trans in all_transactions:
 
 holder = list_of_transactions[len(list_of_transactions)-1][0]
 transaction_number = int(holder)
+print(transaction_number)
 
 dates_of_transactions = []
 
@@ -87,21 +126,21 @@ for trans in list_of_transactions:
 # for date in dates_of_transactions:
 #     update.append(int(date.replace('/','')))
 
-def date_search(list_of_transactions):
-    input_date_min = input('What date would you like to start with? Enter as YYYY/MM/DD: ')
-    date_min = int(input_date_min.replace('/',''))
-    print('Your start date is '+str(date_min))
-    input_date_max = input('What is your end date:  Enter as YYYY/MM/DD: ')
-    date_max = int(input_date_max.replace('/',''))
-    your_date_range = []
-    count = 0
-    for row_num in range(len(list_of_transactions)):
-        this_rows_date = int(list_of_transactions[row_num][3].replace('/',''))
-        if (this_rows_date >= date_min) and (this_rows_date <= date_max):
-            your_date_range.append(list_of_transactions)
-            count += 1
-    print(your_date_range)
-    print('count = ', count)
+# def date_search(list_of_transactions):
+#     input_date_min = input('What date would you like to start with? Enter as YYYY/MM/DD: ')
+#     date_min = int(input_date_min.replace('/',''))
+#     print('Your start date is '+str(date_min))
+#     input_date_max = input('What is your end date:  Enter as YYYY/MM/DD: ')
+#     date_max = int(input_date_max.replace('/',''))
+#     your_date_range = []
+#     count = 0
+#     for row_num in range(len(list_of_transactions)):
+#         this_rows_date = int(list_of_transactions[row_num][3].replace('/',''))
+#         if (this_rows_date >= date_min) and (this_rows_date <= date_max):
+#             your_date_range.append(list_of_transactions)
+#             count += 1
+#     print(your_date_range)
+#     print('count = ', count)
 
 # category_sample = ['2','3','4','5','8','3','9','3','8','4','2','9','4','8','2','7']
 # int_category_sample = []
@@ -143,11 +182,11 @@ while again:
             if choice == 1:
                 view_current_balance(list_of_transactions)
             elif choice == 2:
-                record_withdrawal(all_transactions, list_of_transactions, transaction_number)
+                transaction_number = record_withdrawal(all_transactions, list_of_transactions, transaction_number)
             elif choice == 3:
-                record_deposit(all_transactions, list_of_transactions, transaction_number)
-            elif choice == 5:
-                date_search(list_of_transactions)
+                transaction_number = record_deposit(all_transactions, list_of_transactions, transaction_number)
+            # elif choice == 5:
+            #     date_search(list_of_transactions)
             # elif choice == 6:
             #     category_search(category_sample)
 
