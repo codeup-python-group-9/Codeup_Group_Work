@@ -124,27 +124,6 @@ dates_of_transactions = []
 for trans in list_of_transactions:
     dates_of_transactions.append(trans[-2])
 
-
-# update = []
-# for date in dates_of_transactions:
-#     update.append(int(date.replace('/','')))
-
-# def date_search(list_of_transactions):
-#     input_date_min = input('What date would you like to start with? Enter as YYYY/MM/DD: ')
-#     date_min = int(input_date_min.replace('/',''))
-#     print('Your start date is '+str(date_min))
-#     input_date_max = input('What is your end date:  Enter as YYYY/MM/DD: ')
-#     date_max = int(input_date_max.replace('/',''))
-#     your_date_range = []
-#     count = 0
-#     for row_num in range(len(list_of_transactions)):
-#         this_rows_date = int(list_of_transactions[row_num][3].replace('/',''))
-#         if (this_rows_date >= date_min) and (this_rows_date <= date_max):
-#             your_date_range.append(list_of_transactions)
-#             count += 1
-#     print(your_date_range)
-#     print('count = ', count)
-
 def date_search(list_of_transactions):
     input_date_min = input('What date would you like to start with? Enter as YYYY/MM/DD: ')
     date_min = int(input_date_min.replace('/',''))
@@ -194,16 +173,17 @@ while again:
     print('1) view current balance')
     print('2) record a debit (withdraw)')
     print('3) record a credit (deposit)')
-    print('4) exit')
+    print('4) view transactions within a range of dates')
+    print('5) exit')
         
     choice_input = input('Your choice? ')
         
-    if not choice_input.isdigit() or (int(choice_input) < 1 or int(choice_input) > 6):
+    if not choice_input.isdigit() or (int(choice_input) < 1 or int(choice_input) > 5):
         print('Invalid choice.')
-        print('Please enter a 1, 2, 3, or 4.')
+        print('Please enter a 1, 2, 3, 4 or 5.')
     else:
         choice = int(choice_input)
-        if choice == 4:
+        if choice == 5:
             again = False
             print()
         else:
@@ -213,7 +193,7 @@ while again:
                 transaction_number = record_withdrawal(all_transactions, list_of_transactions, transaction_number)
             elif choice == 3:
                 transaction_number = record_deposit(all_transactions, list_of_transactions, transaction_number)
-            elif choice == 5:
+            elif choice == 4:
                 date_search(list_of_transactions)
             # elif choice == 6:
             #     category_search(category_sample)
