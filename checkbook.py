@@ -27,7 +27,6 @@ def record_withdrawal(all_transactions, list_of_transactions, transaction_number
     category = input('What category would you like to enter for your withdrawal (1-9)? ')
     while not category.isdigit() or int(category) < 1 or int(category) > 9:
         category = input('Please enter a valid category (1, 2, 3, 4, 5, 6, 7, 8, or 9): ')
-    print()
 
     day = datetime.datetime.now().strftime("%Y/%m/%d")
     time = datetime.datetime.now().strftime("%H:%M:%S")
@@ -62,7 +61,6 @@ def record_deposit(all_transactions, list_of_transactions, transaction_number):
     credit_parts = ''.join(credit_input.split('.'))
     while not credit_parts.isdigit() or int(credit_parts) <= 0:
         credit_input = input('Please re-enter your deposit, using only digits: ')
-    print()
     
     # format the credit amount 
     if credit_parts[0] == '-':
@@ -98,6 +96,49 @@ def record_deposit(all_transactions, list_of_transactions, transaction_number):
 
     return transaction_number
 
+def date_search(list_of_transactions):
+    input_date_min = input('With what date would you like to start (YYYY/MM/DD): ')
+    date_min = int(input_date_min.replace('/',''))
+    # print('Your start date is ' + input_date_min + '.')
+    input_date_max = input('What is your end date (YYYY/MM/DD): ')
+    date_max = int(input_date_max.replace('/',''))
+
+    while date_min >= date_max:
+        print('Please make sure your end date is not before your start date.')
+        input_date_min = input('With what date would you like to start (YYYY/MM/DD): ')
+        date_min = int(input_date_min.replace('/',''))
+        # print('Your start date is ' + input_date_min + '.')
+        input_date_max = input('What is your end date (YYYY/MM/DD): ')
+        date_max = int(input_date_max.replace('/',''))
+
+    your_date_range = []
+    count = 0
+    for row_num in range(len(list_of_transactions)):
+        this_rows_date = int(list_of_transactions[row_num][3].replace('/',''))
+        if (this_rows_date >= date_min) and (this_rows_date <= date_max):
+            this_row = list_of_transactions[row_num]
+            your_date_range.append(this_row)
+            count += 1
+
+    print()
+    if count == 0:
+        print(f'There were no transactions between {input_date_min} and {input_date_max}.')
+    else:
+        print(f'There were {count} transactions between {input_date_min} and {input_date_max}:')
+        print()
+        for row_num in range(len(your_date_range)):
+            for i in range(5):
+                if i == 1:
+                    if your_date_range[row_num][1][0] == '-':
+                        print(f'-${your_date_range[row_num][1][1:]}\t', end='')
+                    else:
+                        print(f'${your_date_range[row_num][1]}\t', end='')
+                    if len(your_date_range[row_num][1]) < 7:
+                        print('\t', end='')
+                else:
+                    print(f'{your_date_range[row_num][i]}\t', end='')
+            print()
+        print()
 
 # # @@@@@@@ MAIN @@@@@@@@
 import time
@@ -117,36 +158,13 @@ for trans in all_transactions:
 
 holder = list_of_transactions[len(list_of_transactions)-1][0]
 transaction_number = int(holder)
-print(transaction_number)
 
 dates_of_transactions = []
 
 for trans in list_of_transactions:
     dates_of_transactions.append(trans[-2])
 
-def date_search(list_of_transactions):
-    input_date_min = input('What date would you like to start with? Enter as YYYY/MM/DD: ')
-    date_min = int(input_date_min.replace('/',''))
-    print('Your start date is '+str(date_min))
-    input_date_max = input('What is your end date:  Enter as YYYY/MM/DD: ')
-    date_max = int(input_date_max.replace('/',''))
-    your_date_range = []
-    count = 0
-    for row_num in range(len(list_of_transactions)):
-        this_rows_date = int(list_of_transactions[row_num][3].replace('/',''))
-        if date_min >= date_max:
-            print('Please make sure your end date is not before your start date.')
-            input_date_min = input('What date would you like to start with? Enter as YYYY/MM/DD: ')
-            date_min = int(input_date_min.replace('/',''))
-            print('Your start date is '+str(date_min))
-            input_date_max = input('What is your end date:  Enter as YYYY/MM/DD: ')
-            date_max = int(input_date_max.replace('/',''))
-        elif (this_rows_date >= date_min) and (this_rows_date <= date_max):
-            this_row = list_of_transactions[row_num]
-            your_date_range.append(this_row)
-            count += 1
-    print(your_date_range)
-    print('count = ', count)
+
 
 # category_sample = ['2','3','4','5','8','3','9','3','8','4','2','9','4','8','2','7']
 # int_category_sample = []
