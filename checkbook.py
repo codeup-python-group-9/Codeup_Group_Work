@@ -177,7 +177,7 @@ def category_search(list_of_transactions):
     if count == 0:
         print(f'There are no transactions with category of {selection}.')
     else:
-        print(f'There are {count} transactions with a category of {selection}:')
+        print(f'Here is a list of {count} transactions with a category of {selection}:')
         print()
         for row_num in range(len(your_category_list)):
             for i in range(5):
@@ -191,6 +191,39 @@ def category_search(list_of_transactions):
                 else:
                     print(f'{your_category_list[row_num][i]}\t', end='')
             print()
+        print(f'You have {count} transactions with a category of {selection}.')
+
+        amounts = []
+        withdrawals = []
+        deposits = []
+        for i in range(len(your_category_list)):
+            amount = int((your_category_list[i][1]).replace('.',''))
+            amounts.append(amount)
+            if amount < 0:
+                withdrawals.append(amount)
+            else:
+                deposits.append(amount)
+
+        maximum_deposit = max(amounts)
+        maximum_as_string = str(maximum_deposit)
+        maximum_as_string = str(maximum_as_string[0:-2]) + '.' + str(maximum_as_string[-2:])
+        print(f'The maximum deposit in this category is ${maximum_as_string}.')
+
+        # average_deposit = sum(deposits)/len(deposits)
+        # avg_dep_as_string = str(average_deposit)
+        # avg_dep_as_string = str(avg_dep_as_string[0:-2]) + '.' + str(avg_dep_as_string[-2:])
+        # print(f'The average deposit in this category is ${avg_dep_as_string}.')
+
+        maximum_withdrawal = min(amounts)
+        max_with_as_string = str(maximum_withdrawal)
+        max_with_as_string = str(max_with_as_string[0:-2]) + '.' + str(max_with_as_string[-2:])
+        print(f'The maximum withdrawal in this category is ${max_with_as_string[1:]}.')
+
+        # average_withdrawal = sum(withdrawals)/len(withdrawals)
+        # avg_with_as_string = str(average_withdrawal)
+        # avg_with_as_string = str(avg_with_as_string[0:-2]) + '.' + str(avg_with_as_string[-2:])
+        # print(f'The average withdrawal in this category is ${avg_dep_as_string}.')
+        
         print()
 
 
