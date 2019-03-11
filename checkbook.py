@@ -6,7 +6,7 @@ def view_current_balance(list_of_transactions):
     print(f'Your balance is ${balance:.2f}.')
     print()
 
-
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 def record_withdrawal(all_transactions, list_of_transactions, transaction_number):
     # choice 2
     transaction_number += 1
@@ -52,7 +52,7 @@ def record_withdrawal(all_transactions, list_of_transactions, transaction_number
 
     return transaction_number
 
-
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 def record_deposit(all_transactions, list_of_transactions, transaction_number):
     # choice 3
     transaction_number += 1
@@ -96,6 +96,7 @@ def record_deposit(all_transactions, list_of_transactions, transaction_number):
 
     return transaction_number
 
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 def print_transactions_in_selected_range(list_of_transactions, input_date_min, input_date_max):
     date_min = int(input_date_min.replace('/',''))
     date_max = int(input_date_max.replace('/',''))
@@ -111,9 +112,9 @@ def print_transactions_in_selected_range(list_of_transactions, input_date_min, i
     print()
 
     if count == 0:
-        print(f'There were no transactions between {input_date_min} and {input_date_max}.')
+        print(f'There are no transactions between {input_date_min} and {input_date_max}.')
     else:
-        print(f'There were {count} transactions between {input_date_min} and {input_date_max}:')
+        print(f'There are {count} transactions between {input_date_min} and {input_date_max}:')
         print()
         for row_num in range(len(your_date_range)):
             for i in range(5):
@@ -129,6 +130,7 @@ def print_transactions_in_selected_range(list_of_transactions, input_date_min, i
             print()
         print()
 
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 def date_search(list_of_transactions):
     input_date_min = input('With what date would you like to start (YYYY/MM/DD): ')
     date_min = int(input_date_min.replace('/',''))
@@ -144,6 +146,7 @@ def date_search(list_of_transactions):
 
     print_transactions_in_selected_range(list_of_transactions, input_date_min, input_date_max)
 
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 def print_all_transactions(list_of_transactions):
     dates = []
     for entry in list_of_transactions:
@@ -155,6 +158,42 @@ def print_all_transactions(list_of_transactions):
     print_transactions_in_selected_range(list_of_transactions, input_date_min, input_date_max)
     print(f'Those are all transactions between {input_date_min} and {input_date_max}.')
     print()
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+def category_search(list_of_transactions):
+    selection = input('Which category would you like to see? ')
+    num_selection = int(selection)
+    
+    your_category_list = []
+    count = 0
+    for row_num in range(len(list_of_transactions)):
+        this_rows_category = int(list_of_transactions[row_num][2])
+        if (this_rows_category == num_selection):
+            this_row = list_of_transactions[row_num]
+            your_category_list.append(this_row)
+            count += 1
+    print()
+
+    if count == 0:
+        print(f'There are no transactions with category of {selection}.')
+    else:
+        print(f'There are {count} transactions with a category of {selection}:')
+        print()
+        for row_num in range(len(your_category_list)):
+            for i in range(5):
+                if i == 1:
+                    if your_category_list[row_num][1][0] == '-':
+                        print(f'-${your_category_list[row_num][1][1:]}\t', end='')
+                    else:
+                        print(f'${your_category_list[row_num][1]}\t', end='')
+                    if len(your_category_list[row_num][1]) < 7:
+                        print('\t', end='')
+                else:
+                    print(f'{your_category_list[row_num][i]}\t', end='')
+            print()
+        print()
+
+
 
 # # @@@@@@@ MAIN @@@@@@@@
 import time
@@ -180,25 +219,6 @@ dates_of_transactions = []
 for trans in list_of_transactions:
     dates_of_transactions.append(trans[-2])
 
-
-
-# category_sample = ['2','3','4','5','8','3','9','3','8','4','2','9','4','8','2','7']
-# int_category_sample = []
-# for category in category_sample:
-#     int_category_sample.append(int(category))
-
-# print(int_category_sample)
-
-# def category_search(int_category_sample):
-#     user_category = input('What category would you like to search, 1-10: ')
-#     user_category_input = int(user_category)
-#     user_category_input_int = []
-#     for category in int_category_sample:
-#         if user_category_input in int_category_sample:
-#             user_category_input_int.append(user_category_input)
-#     print(user_category_input_int)
-
-
 print('~~~ Welcome to your terminal checkbook! ~~~')
 print()
 again = True
@@ -209,16 +229,17 @@ while again:
     print('3) record a credit (deposit)')
     print('4) view transactions within a range of dates')
     print('5) view all transactions')
-    print('6) exit')
+    print('6) view all transactions in a category')
+    print('7) exit')
         
     choice_input = input('Your choice? ')
         
-    if not choice_input.isdigit() or (int(choice_input) < 1 or int(choice_input) > 6):
+    if not choice_input.isdigit() or (int(choice_input) < 1 or int(choice_input) > 7):
         print('Invalid choice.')
-        print('Please enter a 1, 2, 3, 4, 5, or 6.')
+        print('Please enter a 1, 2, 3, 4, 5, 6, or 7.')
     else:
         choice = int(choice_input)
-        if choice == 6:
+        if choice == 7:
             again = False
             print()
         else:
@@ -232,8 +253,8 @@ while again:
                 date_search(list_of_transactions)
             elif choice == 5:
                 print_all_transactions(list_of_transactions)
-            # elif choice == 6:
-            #     category_search(category_sample)
+            elif choice == 6:
+                category_search(list_of_transactions)
 
 print('Thanks, have a great day!')
 
