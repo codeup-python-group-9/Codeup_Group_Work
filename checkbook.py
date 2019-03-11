@@ -96,20 +96,9 @@ def record_deposit(all_transactions, list_of_transactions, transaction_number):
 
     return transaction_number
 
-def date_search(list_of_transactions):
-    input_date_min = input('With what date would you like to start (YYYY/MM/DD): ')
+def print_transactions_in_selected_range(list_of_transactions, input_date_min, input_date_max):
     date_min = int(input_date_min.replace('/',''))
-    # print('Your start date is ' + input_date_min + '.')
-    input_date_max = input('What is your end date (YYYY/MM/DD): ')
     date_max = int(input_date_max.replace('/',''))
-
-    while date_min >= date_max:
-        print('Please make sure your end date is not before your start date.')
-        input_date_min = input('With what date would you like to start (YYYY/MM/DD): ')
-        date_min = int(input_date_min.replace('/',''))
-        # print('Your start date is ' + input_date_min + '.')
-        input_date_max = input('What is your end date (YYYY/MM/DD): ')
-        date_max = int(input_date_max.replace('/',''))
 
     your_date_range = []
     count = 0
@@ -119,8 +108,8 @@ def date_search(list_of_transactions):
             this_row = list_of_transactions[row_num]
             your_date_range.append(this_row)
             count += 1
-
     print()
+
     if count == 0:
         print(f'There were no transactions between {input_date_min} and {input_date_max}.')
     else:
@@ -139,6 +128,33 @@ def date_search(list_of_transactions):
                     print(f'{your_date_range[row_num][i]}\t', end='')
             print()
         print()
+
+def date_search(list_of_transactions):
+    input_date_min = input('With what date would you like to start (YYYY/MM/DD): ')
+    date_min = int(input_date_min.replace('/',''))
+    input_date_max = input('What is your end date (YYYY/MM/DD): ')
+    date_max = int(input_date_max.replace('/',''))
+
+    while date_min >= date_max:
+        print('Please make sure your end date is not before your start date.')
+        input_date_min = input('With what date would you like to start (YYYY/MM/DD): ')
+        date_min = int(input_date_min.replace('/',''))
+        input_date_max = input('What is your end date (YYYY/MM/DD): ')
+        date_max = int(input_date_max.replace('/',''))
+
+    print_transactions_in_selected_range(list_of_transactions, input_date_min, input_date_max)
+
+def print_all_transactions(list_of_transactions):
+    dates = []
+    for entry in list_of_transactions:
+        dates.append(entry[3])
+    
+    input_date_min = min(dates)
+    input_date_max = max(dates)
+
+    print_transactions_in_selected_range(list_of_transactions, input_date_min, input_date_max)
+    print(f'Those are all transactions between {input_date_min} and {input_date_max}.')
+    print()
 
 # # @@@@@@@ MAIN @@@@@@@@
 import time
@@ -192,16 +208,17 @@ while again:
     print('2) record a debit (withdraw)')
     print('3) record a credit (deposit)')
     print('4) view transactions within a range of dates')
-    print('5) exit')
+    print('5) view all transactions')
+    print('6) exit')
         
     choice_input = input('Your choice? ')
         
-    if not choice_input.isdigit() or (int(choice_input) < 1 or int(choice_input) > 5):
+    if not choice_input.isdigit() or (int(choice_input) < 1 or int(choice_input) > 6):
         print('Invalid choice.')
-        print('Please enter a 1, 2, 3, 4 or 5.')
+        print('Please enter a 1, 2, 3, 4, 5, or 6.')
     else:
         choice = int(choice_input)
-        if choice == 5:
+        if choice == 6:
             again = False
             print()
         else:
@@ -213,6 +230,8 @@ while again:
                 transaction_number = record_deposit(all_transactions, list_of_transactions, transaction_number)
             elif choice == 4:
                 date_search(list_of_transactions)
+            elif choice == 5:
+                print_all_transactions(list_of_transactions)
             # elif choice == 6:
             #     category_search(category_sample)
 
